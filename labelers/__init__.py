@@ -8,7 +8,7 @@ class Labeler:
         self.client = None
     
     @abstractmethod
-    def get_instances(self) -> List or Dict:
+    def get_resources(self) -> List or Dict:
         pass
 
     @abstractmethod

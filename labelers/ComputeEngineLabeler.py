@@ -33,9 +33,12 @@ class InstancesLabeler(Labeler):
                         instance=instance.name,
                         instance_resource=instance
                     )
-                    operation = self.client.update(request=update_request)
-                    operation.result()  # Wait for operation to complete
-                    print(f"Successfully added labels to VM '{instance.name}': {new_labels}")
+                    try:
+                        operation = self.client.update(request=update_request)
+                        operation.result()  # Wait for operation to complete
+                        print(f"Successfully added labels to VM '{instance.name}': {new_labels}")
+                    except Exception as e:
+                        print(f"Error updating VM '{instance.name}': {e}")
         
         
 class ImagesLabeler(Labeler):
@@ -69,7 +72,22 @@ class ImagesLabeler(Labeler):
                 global_set_labels_request_resource=labels_request
             )
 
-            # Make the request
-            operation = self.client.set_labels(request=request)
-            operation.result()  # Wait for operation to complete
-            print(f"Successfully added labels to Image '{image.name}': {new_labels}")
+            try:
+                operation = self.client.set_labels(request=request)
+                operation.result()  # Wait for operation to complete
+                print(f"Successfully added labels to Image '{image.name}': {new_labels}")
+            except Exception as e:
+                print(f"Error updating Image '{image.name}': {e}")
+
+class DiskLabeler(Labeler):
+    def __init__(self, project: str, filter: str = None):
+        super().__init__(project, filter)
+        self.client = compute_v1.DisksClient()
+
+    def get_resources(self) -> Dict:
+        request = compute_v1.AggregatedListInstancesRequest()
+        request.project = self.project
+        request.filter = self.filter
+        request.max_results = 50
+
+        return self.client.aggregated_list(request=request)
