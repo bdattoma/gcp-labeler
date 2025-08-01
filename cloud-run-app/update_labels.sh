@@ -11,7 +11,7 @@ function update_labels() {
         gcloud compute instances add-labels $instance --labels=$NEW_LABELS --zone=$zone
     done
 
-    echo ">> Compute Engine: images"
+   echo ">> Compute Engine: images"
    gcloud compute images list --filter "$FILTER" --format="json" | jq --arg PROJECT $PROJECT '.[] | select(.selfLink | contains($PROJECT)) | .name' | tr -d '"' | while read -r image; do
         echo "[INFO] Updating labels on image: $image"
         gcloud compute images add-labels $image --labels=$NEW_LABELS
@@ -34,6 +34,7 @@ function update_labels() {
         echo "[INFO] Updating labels on forwarding rule: $forwardingrule in region: $region"
         gcloud compute forwarding-rules update $forwardingrule --region=$region --update-labels=$NEW_LABELS
     done
+    # TODO: Add support for global IP addresses, no region
 
     echo ">> Networking: External IP Addresses"
     gcloud compute addresses list --filter "$FILTER" --format="value(name,region)" | while read -r address region; do
