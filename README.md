@@ -4,7 +4,7 @@ Two possible workflows:
 - Event-driver: Any cloud Resource Created → Audit Log → Log Sink → Pub/Sub Topic → Cloud Run function (i.e., labeler)
 - Frequency-based: Cloud Scheduler -> Cloud Run function
 
-Note: the instructions are assuming you use the bash script (update_labels.sh)[./cloud-run-app/update_labels.sh], however there is an initial draft of a Python version. Feel free to use it and extend it.
+Note: the instructions are assuming you use the bash script [update_labels.sh](./cloud-run-app/update_labels.sh), however there is an initial draft of a Python version. Feel free to use it and extend it.
 
 
 ## Workflow 1: Event-driver
@@ -40,7 +40,7 @@ protoPayload.methodName =~ "(?i)create|insert"
 
 - Click Create Sink. You may need to grant the sink's service account permission to publish to the topic.
 
-3. Buiild the image with (Dockerfile)[./cloud-run-app/Dockerfile]
+3. Buiild the image with [Dockerfile](./cloud-run-app/Dockerfile)
 
 4. Create a Container Registry in google cloud
     - click on Create Repository and follow the form
