@@ -24,9 +24,9 @@ function update_labels() {
     done
 
     echo ">> Compute Engine: snapshots"
-    gcloud compute snapshots list --filter "$FILTER" --format="value(name,zone)" | while read -r snapshot zone; do
-        echo "[INFO] Updating labels on snapshot: $snapshot in zone: $zone"
-        gcloud compute snapshots add-labels $snapshot --labels=$NEW_LABELS --zone=$zone
+    gcloud compute snapshots list --filter "$FILTER" --format="value(name)" | while read -r snapshot; do
+        echo "[INFO] Updating labels on snapshot: $snapshot"
+        gcloud compute snapshots add-labels $snapshot --labels=$NEW_LABELS
     done
 
     echo ">> Networking: Forwarding Rules"
