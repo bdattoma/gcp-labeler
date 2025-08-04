@@ -1,3 +1,4 @@
+_The following document is generated with the assistance of an LLM_
 # Instructions for setting up GCP Auto Labeler
 Two possible workflows:
 - Event-driver: Any cloud Resource Created → Audit Log → Log Sink → Pub/Sub Topic → Cloud Run function (i.e., labeler)
@@ -36,7 +37,9 @@ logName:"cloudaudit.googleapis.com%2Factivity" AND
 protoPayload.methodName =~ "(?i)create|insert"
 logName:"cloudaudit.googleapis.com%2Factivity": This targets only Admin Activity audit logs, which record resource modifications.
 
+```code
 protoPayload.methodName ~ "(?i)create|insert": This uses a regular expression to find any method names that contain "create" or "insert", ignoring case ((?i)).
+```
 
 - Click Create Sink. You may need to grant the sink's service account permission to publish to the topic.
 
