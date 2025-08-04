@@ -3,6 +3,8 @@ Two possible workflows:
 - Event-driver: Any cloud Resource Created → Audit Log → Log Sink → Pub/Sub Topic → Cloud Run function (i.e., labeler)
 - Frequency-based: Cloud Scheduler -> Cloud Run function
 
+Note: the instructions are assuming you use the bash script (update_labels.sh)[./cloud-run-app/update_labels.sh], however there is an initial draft of a Python version. Feel free to use it and extend it.
+
 
 ## Workflow 1: Event-driver
 
