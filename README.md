@@ -33,12 +33,9 @@ Click Create Sink.
 
 - Log Filter: This is the most important part. You need to build an inclusion filter to capture creation events from Admin Activity logs across all services. Use the following filter:
 
+```code
 logName:"cloudaudit.googleapis.com%2Factivity" AND
 protoPayload.methodName =~ "(?i)create|insert"
-logName:"cloudaudit.googleapis.com%2Factivity": This targets only Admin Activity audit logs, which record resource modifications.
-
-```code
-protoPayload.methodName ~ "(?i)create|insert": This uses a regular expression to find any method names that contain "create" or "insert", ignoring case ((?i)).
 ```
 
 - Click Create Sink. You may need to grant the sink's service account permission to publish to the topic.
