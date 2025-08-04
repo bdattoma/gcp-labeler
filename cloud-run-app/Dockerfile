@@ -21,11 +21,7 @@ FROM gcr.io/google.com/cloudsdktool/cloud-sdk:slim
 
 WORKDIR /app
 
-RUN curl -o google-cloud-cli-linux-x86_64.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz && \
-    tar -xf google-cloud-cli-linux-x86_64.tar.gz && \
-    rm google-cloud-cli-linux-x86_64.tar.gz && \
-    ./google-cloud-sdk/install.sh --usage-reporting false --command-completion false --path-update false && \
-    apt-get -y install jq
+RUN apt-get -y install jq
 ENV PATH="/app/google-cloud-sdk/bin:${PATH}"
 
 # Copy the binary to the production image from the builder stage.
