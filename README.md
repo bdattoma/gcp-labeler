@@ -21,9 +21,28 @@ Notes:
 
 4. Configure a Service Account
 - Create a new service account (or edit an existing one) with at least Cloud Run Invoker role in order to be able to trigger
+    ```gcloud iam service-accounts create auto-labeler \
+        --description="SA for auto-labeling resources" \
+        --display-name="auto-labeler" \
+        --project <ProjectID>
+      ```
 - Create a Role with with permissions to label resources:
-    - _list TBD_
+    `gcloud iam roles create <newRoleId> --project=<ProjectID> --file=auto-labeler-role.yaml`
 - Add the Role to the Service Account
+    ```
+       gcloud projects add-iam-policy-binding <ProjectID> \
+        --member="serviceAccount:auto-labeler@<ProjectID>.iam.gserviceaccount.com" \
+        --role="projects/<ProjectID>/roles/auto_labeler" --condition=None
+
+
+        gcloud projects add-iam-policy-binding <ProjectID> \
+        --member="serviceAccount:auto-labeler@<ProjectID>.iam.gserviceaccount.com" \
+        --role="roles/run.invoker" --condition=None
+        
+        gcloud projects add-iam-policy-binding <ProjectID> \
+        --member="serviceAccount:auto-labeler@<ProjectID>.iam.gserviceaccount.com" \
+        --role="roles/run.viewer" --condition=None 
+     ```
 
 5. Create a Cloud Function
 Finally, create the function that will be triggered by messages on the Pub/Sub topic.
