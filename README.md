@@ -26,7 +26,7 @@ Notes:
         --description="SA for auto-labeling resources" \
         --display-name="auto-labeler" \
         --project <ProjectID>
-      ```
+    ```
 - Create a Role with with permissions to label resources:
     `gcloud iam roles create <newRoleId> --project=<ProjectID> --file=auto-labeler-role.yaml`
 - Add the Role to the Service Account
