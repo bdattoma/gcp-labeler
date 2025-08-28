@@ -21,7 +21,8 @@ Notes:
 
 4. Configure a Service Account
 - Create a new service account (or edit an existing one) with at least Cloud Run Invoker role in order to be able to trigger
-    ```gcloud iam service-accounts create auto-labeler \
+    ```
+        gcloud iam service-accounts create auto-labeler \
         --description="SA for auto-labeling resources" \
         --display-name="auto-labeler" \
         --project <ProjectID>
