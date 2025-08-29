@@ -2,7 +2,7 @@
 trap 'rc=$?' ERR
 
 
-function update_labels() {
+function delete_resources() {
     echo "[INFO] Updating labels on resources matching filter: $FILTER"
 
     echo ">> Compute Engine: instances (VMs)"
@@ -96,4 +96,4 @@ if [ -z "$PROJECT" ]; then
     exit 1
 fi
 
-update_labels
+delete_resources
